@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Feedback{% endblock title %}
+
+{% block body %}
+    <h1>{{ message }}</h1>
+
+    <a class='btn btn-outline-primary' href='{% url "tasks:task-list" %}'>Back to home</a>
+{% endblock body %}

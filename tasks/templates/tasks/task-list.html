@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}All tasks{% endblock title %}
+
+{% block body %}
+    <h1>All tasks</h1>
+    <hr>
+    <ul class="list-group">
+        {% for task in tasks %}
+        <li class="list-group-item d-flex justify-content-between">
+            <a href='{% url "tasks:task-detail" task.slug %}' class="btn btn-light w-100 text-start">{{ task }}</a>
+            <div class="w-25 d-flex justify-content-end">
+                <a class='btn btn-outline-primary' href='{% url "tasks:edit-task" task.slug %}'>Edit</a>
+                <a class='btn btn-outline-danger' href='{% url "tasks:remove-task" task.slug %}'>Remove</a>
+                {% if task.done %}
+                    <a href='{% url "tasks:toggle-task" task.slug %}' class='btn btn-outline-warning'>Unmark</a>
+                {% else %}
+                    <a href='{% url "tasks:toggle-task" task.slug %}' class='btn btn-outline-success'>Complete</a>
+                {% endif %}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock body %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}{{ task }}{% endblock title %}
+
+{% block body %}
+    <h1>{{ task }}</h1>
+
+    <a class='btn btn-outline-primary' href='{% url "tasks:task-list" %}'>Back to task list</a>
+{% endblock body %}
