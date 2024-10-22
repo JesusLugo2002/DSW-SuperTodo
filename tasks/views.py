@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.utils.text import slugify
+from django.db.models import F
 
 from .models import Task
 from .forms import AddTaskForm, EditTaskForm
 
 # Create your views here.
 def task_list(request):
-    tasks = Task.objects.all()
-    return render(request, 'tasks/task-list.html', dict(tasks=tasks))
+    title = 'All tasks'
+    tasks = Task.objects.all().order_by('done', F('deadline').asc(nulls_last=True))
+    return render(request, 'tasks/task-list.html', dict(tasks=tasks, title=title))
 
 def add_task(request):
     if request.method == 'POST':
@@ -15,19 +17,21 @@ def add_task(request):
             task = form.save(commit=False)
             task.slug = slugify(task.title)
             task.save()
-            message = f'Task {task.title} added!'
+            message = f'Task "{task.title}" added!'
             return render(request, 'tasks/feedback.html', dict(message=message))
     else:
         form = AddTaskForm()
     return render(request, 'tasks/add-task.html', dict(form=form))
 
 def done_tasks(request):
-    tasks = Task.objects.filter(done=True)
-    return render(request, 'tasks/task-list.html', dict(tasks=tasks))
+    title = 'Completed tasks'
+    tasks = Task.objects.filter(done=True).order_by(F('deadline').asc(nulls_last=True))
+    return render(request, 'tasks/task-list.html', dict(tasks=tasks, title=title))
 
 def pending_tasks(request):
-    tasks = Task.objects.filter(done=False)
-    return render(request, 'tasks/task-list.html', dict(tasks=tasks))
+    title = 'Pending tasks'
+    tasks = Task.objects.filter(done=False).order_by(F('deadline').asc(nulls_last=True))
+    return render(request, 'tasks/task-list.html', dict(tasks=tasks, title=title))
 
 def task_detail(request, task_slug):
     task = Task.objects.get(slug=task_slug)
@@ -35,7 +39,7 @@ def task_detail(request, task_slug):
 
 def remove_task(request, task_slug):
     task = Task.objects.get(slug=task_slug)
-    message = f'Task {task.title} removed!'
+    message = f'Task "{task.title}" removed!'
     task.delete()
     return render(request, "tasks/feedback.html", dict(message=message))
 
@@ -46,7 +50,7 @@ def edit_task(request, task_slug: str):
             task = form.save(commit=False)
             task.slug = slugify(task.title)
             task.save()
-            message = f'Task {task.title} edited!'
+            message = f'Task "{task.title}" edited!'
             return render(request, 'tasks/feedback.html', dict(message=message))
     else:
         form = EditTaskForm(instance=task)

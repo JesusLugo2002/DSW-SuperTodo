@@ -3,7 +3,7 @@
 {% block title %}Feedback{% endblock title %}
 
 {% block body %}
-    <h1>{{ message }}</h1>
+    <h3>{{ message }}</h3>
 
-    <a class='btn btn-outline-primary' href='{% url "tasks:task-list" %}'>Back to home</a>
+    <a class='btn btn-outline-primary' href='{% url "tasks:task-list" %}'>Back to task list</a>
 {% endblock body %}

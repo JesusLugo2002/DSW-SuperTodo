@@ -1,24 +1,46 @@
 {% extends "base.html" %}
 
-{% block title %}All tasks{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
 {% block body %}
-    <h1>All tasks</h1>
-    <hr>
-    <ul class="list-group">
-        {% for task in tasks %}
-        <li class="list-group-item d-flex justify-content-between">
-            <a href='{% url "tasks:task-detail" task.slug %}' class="btn btn-light w-100 text-start">{{ task }}</a>
-            <div class="w-25 d-flex justify-content-end">
-                <a class='btn btn-outline-primary' href='{% url "tasks:edit-task" task.slug %}'>Edit</a>
-                <a class='btn btn-outline-danger' href='{% url "tasks:remove-task" task.slug %}'>Remove</a>
-                {% if task.done %}
-                    <a href='{% url "tasks:toggle-task" task.slug %}' class='btn btn-outline-warning'>Unmark</a>
-                {% else %}
-                    <a href='{% url "tasks:toggle-task" task.slug %}' class='btn btn-outline-success'>Complete</a>
-                {% endif %}
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="d-flex">
+        <aside class="container w-25 d-flex flex-column px-5">
+            <a href='{% url "tasks:add-task" %}' class="btn btn-primary mb-3 fw-bold">Add task</a>
+            <a href='{% url "tasks:task-list" %}' class="btn btn-secondary mb-1">All tasks</a>
+            <a href='{% url "tasks:pending-tasks" %}' class="btn btn-danger mb-1">Pending tasks</a>
+            <a href='{% url "tasks:done-tasks" %}' class="btn btn-success">Done tasks</a>
+        </aside>
+        <section class="container w-100">
+            <h1>{{ title }}</h1>
+            <hr>
+            <ul class="list-group-flush">
+                {% for task in tasks %}
+                <li class="list-group-item d-flex justify-content-between mb-3">
+                    <a href='{% url "tasks:task-detail" task.slug %}' 
+                        class="btn btn-light w-100 text-start">
+                        <div class="align-middle h-100">
+                            <p class="fs-5 {% if task.done %}text-decoration-line-through{% endif %}">{{ task }}</p>
+                            <p class="fs-5 text-body-secondary">
+                                {% if task.deadline is not None %}
+                                    Deadline: {{ task.deadline }}
+                                {% else %}
+                                    No deadline provided!
+                                {% endif %}
+                            </p>
+                        </div>
+                    </a>
+                    <div class="d-grid col-2">
+                        <a class='btn btn-outline-primary' href='{% url "tasks:edit-task" task.slug %}'>Edit</a>
+                        <a class='btn btn-outline-danger' href='{% url "tasks:remove-task" task.slug %}'>Remove</a>
+                        {% if task.done %}
+                            <a href='{% url "tasks:toggle-task" task.slug %}' class='btn btn-outline-warning'>Re-open</a>
+                        {% else %}
+                            <a href='{% url "tasks:toggle-task" task.slug %}' class='btn btn-outline-success'>Complete</a>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div> 
 {% endblock body %}

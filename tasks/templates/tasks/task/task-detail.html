@@ -3,7 +3,27 @@
 {% block title %}{{ task }}{% endblock title %}
 
 {% block body %}
-    <h1>{{ task }}</h1>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h1 class="card-title">{{ task.title }}</h1>
+            <h4 class="card-subtitle text-body-secondary mb-2">
+                {% if task.deadline is not None %}
+                    Deadline: {{ task.deadline }}
+                {% else %}
+                    No deadline provided!
+                {% endif %}
+            </h4>
+            <p class="card-subtitle text-body-tertiary">Created at: {{ task.created_at }}</p>
+            <p class="card-subtitle text-body-tertiary">Updated at: {{ task.updated_at }}</p>
+            <p class="card-text mt-2">
+                {% if task.description|length > 0 %}
+                    {{ task.description }}
+                {% else %}
+                    No description provided!
+                {% endif %}
+            </p>
+        </div>
+    </div>
 
     <a class='btn btn-outline-primary' href='{% url "tasks:task-list" %}'>Back to task list</a>
 {% endblock body %}
