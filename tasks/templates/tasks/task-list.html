@@ -21,8 +21,8 @@
                         <div class="align-middle h-100">
                             <p class="fs-5 {% if task.done %}text-decoration-line-through{% endif %}">{{ task }}</p>
                             <p class="fs-5 text-body-secondary">
-                                {% if task.deadline is not None %}
-                                    Deadline: {{ task.deadline }}
+                                {% if task.complete_before is not None %}
+                                    Deadline: {{ task.complete_before }}
                                 {% else %}
                                     No deadline provided!
                                 {% endif %}

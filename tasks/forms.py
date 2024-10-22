@@ -4,9 +4,9 @@ from .models import Task
 class AddTaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ('title', 'description', 'deadline')
+        fields = ('name', 'description', 'complete_before')
         widgets = {
-            'deadline': forms.DateInput(attrs={'type': 'date'})
+            'complete_before': forms.DateInput(attrs={'type': 'date'})
         }
     
     def __init__(self, *args, **kwargs):
@@ -17,9 +17,9 @@ class AddTaskForm(forms.ModelForm):
 class EditTaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ('title', 'description', 'deadline')
+        fields = ('name', 'description', 'complete_before')
         widgets = {
-            'deadline': forms.DateInput(attrs={'type': 'date'})
+            'complete_before': forms.DateInput(attrs={'type': 'date'})
         }
 
     def __init__(self, *args, **kwargs):

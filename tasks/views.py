@@ -15,10 +15,9 @@ def add_task(request):
     if request.method == 'POST':
         if (form := AddTaskForm(request.POST)).is_valid():
             task = form.save(commit=False)
-            task.slug = slugify(task.title)
+            task.slug = slugify(task.name)
             task.save()
-            message = f'Task "{task.title}" added!'
-            return render(request, 'tasks/feedback.html', dict(message=message))
+            return redirect('tasks:task-list')
     else:
         form = AddTaskForm()
     return render(request, 'tasks/task/add.html', dict(form=form))
@@ -39,7 +38,7 @@ def task_detail(request, task_slug):
 
 def remove_task(request, task_slug):
     task = Task.objects.get(slug=task_slug)
-    message = f'Task "{task.title}" removed!'
+    message = f'Task "{task.name}" removed!'
     task.delete()
     return render(request, "tasks/feedback.html", dict(message=message))
 
@@ -48,9 +47,9 @@ def edit_task(request, task_slug: str):
     if request.method == 'POST':
         if (form := EditTaskForm(request.POST, instance=task)).is_valid():
             task = form.save(commit=False)
-            task.slug = slugify(task.title)
+            task.slug = slugify(task.name)
             task.save()
-            message = f'Task "{task.title}" edited!'
+            message = f'Task "{task.name}" edited!'
             return render(request, 'tasks/feedback.html', dict(message=message))
     else:
         form = EditTaskForm(instance=task)

@@ -1,4 +1,7 @@
-# Run Django server
+# I ❤️ just
+# https://github.com/casey/just
+
+# Run development server.
 runserver:
     ./manage.py runserver
 
@@ -17,6 +20,29 @@ mmigrate app="":
 # Migrate models
 migrate app="":
     ./manage.py migrate {{ app }}
+
+# https://medium.com/@mustahibmajgaonkar/how-to-reset-django-migrations-6787b2a1e723
+# https://stackoverflow.com/a/76300128
+# Remove migrations and database. Reset DB artefacts.
+reset-db:
+    #!/usr/bin/env bash
+    find . -path "*/migrations/*.py" ! -path "./.venv/*" ! -name "__init__.py" -delete
+    find . -path "*/migrations/*.pyc" ! -path "./.venv/*" -delete
+    rm -f db.sqlite3
+    ./manage.py makemigrations
+    ./manage.py migrate
+    echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'admin')" | ./manage.py shell
+    echo
+    echo "Creating superuser → admin:admin ... OK"
+
+# Reset admin (admin user must exist!)
+@reset-admin password="admin":
+    echo "from django.contrib.auth.models import User; u = User.objects.get(username='admin'); u.set_password('{{ password }}'); u.save()" | ./manage.py shell
+    echo "✔ Reseted admin account with password '{{ password }}'"
+
+# Download teacher's code and sync with changes.
+sync:
+    ghget -o . https://github.com/sdelquin/dsw/tree/main/ut2/nanobits
 
 # Open sqlite project database
 db:
