@@ -21,7 +21,7 @@ def add_task(request):
             return render(request, 'tasks/feedback.html', dict(message=message))
     else:
         form = AddTaskForm()
-    return render(request, 'tasks/add-task.html', dict(form=form))
+    return render(request, 'tasks/task/add.html', dict(form=form))
 
 def done_tasks(request):
     title = 'Completed tasks'
@@ -35,7 +35,7 @@ def pending_tasks(request):
 
 def task_detail(request, task_slug):
     task = Task.objects.get(slug=task_slug)
-    return render(request, 'tasks/task/task-detail.html', dict(task=task))
+    return render(request, 'tasks/task/detail.html', dict(task=task))
 
 def remove_task(request, task_slug):
     task = Task.objects.get(slug=task_slug)
@@ -54,7 +54,7 @@ def edit_task(request, task_slug: str):
             return render(request, 'tasks/feedback.html', dict(message=message))
     else:
         form = EditTaskForm(instance=task)
-    return render(request, 'tasks/task/edit-task.html', dict(task=task, form=form))
+    return render(request, 'tasks/task/edit.html', dict(task=task, form=form))
 
 def toggle_task(request, task_slug: str):
     task = Task.objects.get(slug=task_slug)

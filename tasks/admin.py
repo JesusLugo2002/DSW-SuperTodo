@@ -6,3 +6,5 @@ from .models import Task
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ["title"]}
+    list_display = ["title", "deadline", "done", "created_at", "updated_at"]
+    list_filter = ["done"]
