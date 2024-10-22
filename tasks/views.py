@@ -8,7 +8,7 @@ from .forms import AddTaskForm, EditTaskForm
 # Create your views here.
 def task_list(request):
     title = 'All tasks'
-    tasks = Task.objects.all().order_by('done', F('deadline').asc(nulls_last=True))
+    tasks = Task.objects.all().order_by('done', F('complete_before').asc(nulls_last=True))
     return render(request, 'tasks/task-list.html', dict(tasks=tasks, title=title))
 
 def add_task(request):
@@ -25,12 +25,12 @@ def add_task(request):
 
 def done_tasks(request):
     title = 'Completed tasks'
-    tasks = Task.objects.filter(done=True).order_by(F('deadline').asc(nulls_last=True))
+    tasks = Task.objects.filter(done=True).order_by(F('complete_before').asc(nulls_last=True))
     return render(request, 'tasks/task-list.html', dict(tasks=tasks, title=title))
 
 def pending_tasks(request):
     title = 'Pending tasks'
-    tasks = Task.objects.filter(done=False).order_by(F('deadline').asc(nulls_last=True))
+    tasks = Task.objects.filter(done=False).order_by(F('complete_before').asc(nulls_last=True))
     return render(request, 'tasks/task-list.html', dict(tasks=tasks, title=title))
 
 def task_detail(request, task_slug):
