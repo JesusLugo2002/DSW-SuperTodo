@@ -3,7 +3,7 @@ from django.utils.text import slugify
 from django.db.models import F
 
 from .models import Task
-from .forms import AddTaskForm, EditTaskForm
+from .forms import TaskForm
 
 # Create your views here.
 def task_list(request):
@@ -13,13 +13,13 @@ def task_list(request):
 
 def add_task(request):
     if request.method == 'POST':
-        if (form := AddTaskForm(request.POST)).is_valid():
+        if (form := TaskForm(request.POST)).is_valid():
             task = form.save(commit=False)
             task.slug = slugify(task.name)
             task.save()
             return redirect('tasks:task-list')
     else:
-        form = AddTaskForm()
+        form = TaskForm()
     return render(request, 'tasks/task/add.html', dict(form=form))
 
 def done_tasks(request):
@@ -45,14 +45,14 @@ def remove_task(request, task_slug):
 def edit_task(request, task_slug: str):
     task = Task.objects.get(slug=task_slug)
     if request.method == 'POST':
-        if (form := EditTaskForm(request.POST, instance=task)).is_valid():
+        if (form := TaskForm(request.POST, instance=task)).is_valid():
             task = form.save(commit=False)
             task.slug = slugify(task.name)
             task.save()
             message = f'Task "{task.name}" edited!'
             return render(request, 'tasks/feedback.html', dict(message=message))
     else:
-        form = EditTaskForm(instance=task)
+        form = TaskForm(instance=task)
     return render(request, 'tasks/task/edit.html', dict(task=task, form=form))
 
 def toggle_task(request, task_slug: str):
