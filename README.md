@@ -12,4 +12,10 @@ This project was created as homework for Server-side Web Development subject of 
 
 ## Demostration
 
+<div align=center>
+
+https://github.com/user-attachments/assets/0340f9aa-7086-4ed0-82c1-75da94dae706
+
+</div>
+
 </div>
