@@ -1,16 +1,36 @@
 <div align=justify>
 
-# SuperToDo
+# :heavy_check_mark: SuperToDo
 
 A ToDo web application stylized with Bootstrap and fully developed on Django.
 
 This project was created as homework for Server-side Web Development subject of my Web Application Development formation.
 
-## Technologies
+## :wrench: Technologies
 
-## What I learned
+- `pip`
+- `pip-venv`
+- `Python`
+- `Django`
+- `HTML`
 
-## Demostration
+## :book: What I learned
+
+### Django basics and the Model-View-Template pattern
+
+I learned how use Django framework to create a fully backend application using Python, also I learned how it works using his Model-View-Template pattern (similar to MVC), where the model
+represents the data but the view handle the business logic and the template display the information.
+
+### `pip` as package manager and `pip-venv` for virtual environments
+
+I use `pip` to install the dependencies (in this case, just Django), and learned how to save that dependencies into a `requeriments.txt` that helps me to, in a future, install all packages
+with just one command. Also, I use `pip-venv` to create a virtual environment, keeping isolated the packages that I used in the project.
+
+### Basics URL handling
+
+With the `urls.py` file, I setup different routes to execute different views, thinking on model identifiers like the `task_slug` used for create dynamic urls.
+
+## :eyes: Demostration
 
 <div align=center>
 
