@@ -15,6 +15,12 @@ This project was created as homework for Server-side Web Development subject of 
 - `HTML`
 - `Bootstrap 5`
 
+## :star: Features
+
+1. **Add, edit and delete tasks** in a simpler way across the minimalist and clean user interface.
+2. **Add deadlines** to your things to do, the application sort your list by the deadlines showing you first the nearest date.
+3. **Keep it organized** navigating between the different tabs that filter your tasks in pending or completed.
+
 ## :book: What I learned
 
 ### Django basics and the Model-View-Template pattern
@@ -38,5 +44,15 @@ With the `urls.py` file, I setup different routes to execute different views, th
 https://github.com/user-attachments/assets/0340f9aa-7086-4ed0-82c1-75da94dae706
 
 </div>
+
+## :question: How run this app?
+
+1. Download the package or clone the repository.
+2. Before use anything, execute `apt-get install python3.12 python3-pip python3-venv` to install the neccesary packages.
+3. Inside, use `python3 -m venv .venv --prompt supertodo` to create the virtual environment.
+4. Use `source .venv/bin/activate` to enter into the virtual environment.
+5. Execute `pip install -r requeriments.txt` to install the dependencies.
+6. Now you can use `./manage.py check && ./manage.py migrate` to prepare the application, then, `./manage.py runserver` to start it and access by the default url [localhost:8000](localhost:8000).
+7. When you want to leave, just stop the dev server with CTRL + C on terminal and writing `deactivate` to leave the virtual environment.
 
 </div>
