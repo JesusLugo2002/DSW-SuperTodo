@@ -48,11 +48,13 @@ https://github.com/user-attachments/assets/0340f9aa-7086-4ed0-82c1-75da94dae706
 ## :question: How run this app?
 
 1. Download the package or clone the repository.
-2. Before use anything, execute `apt-get install python3.12 python3-pip python3-venv` to install the neccesary packages.
+2. Before use anything, execute `apt-get install python3.12 python3-pip python3-venv` into the terminal to install the neccesary packages.
 3. Inside, use `python3 -m venv .venv --prompt supertodo` to create the virtual environment.
 4. Use `source .venv/bin/activate` to enter into the virtual environment.
 5. Execute `pip install -r requeriments.txt` to install the dependencies.
-6. Now you can use `./manage.py check && ./manage.py migrate` to prepare the application, then, `./manage.py runserver` to start it and access by the default url [localhost:8000](localhost:8000).
-7. When you want to leave, just stop the dev server with CTRL + C on terminal and writing `deactivate` to leave the virtual environment.
+6. Now you can use `./manage.py check && ./manage.py migrate` to prepare the application.
+7. If you want to access into admin dashboard later, execute `./manage.py createsuperuser` and complete the form to create your admin user.
+8. then, `./manage.py runserver` to start it and access by the default url [localhost:8000](http://localhost:8000). You can enter into the admin interface with [localhost:8000/admin](http://localhost:8000/admin)
+10. When you want to leave, just stop the dev server with `Ctrl+C` on terminal and writing `deactivate` to leave the virtual environment.
 
 </div>
