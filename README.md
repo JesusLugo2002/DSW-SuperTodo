@@ -13,6 +13,7 @@ This project was created as homework for Server-side Web Development subject of 
 - `Python`
 - `Django`
 - `HTML`
+- `Bootstrap 5`
 
 ## :book: What I learned
 
